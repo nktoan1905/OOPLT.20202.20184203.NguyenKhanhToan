@@ -14,113 +14,75 @@ public class Day {
         do {
             System.out.println("Month: ");
             month = new Scanner(System.in).nextLine();
-            for (String a: strMonthArray){
-                if(month.equals(a)){
+            for (String a : strMonthArray) {
+                if (month.equals(a)) {
                     check++;
                     tmp = 1;
                 }
             }
-            for (String a: strMonthArray2){
-                if(month.equals(a)) {
+            for (String a : strMonthArray2) {
+                if (month.equals(a)) {
                     check++;
                 }
             }
-        }while (check == 0);
+        } while (check == 0);
 
         do {
             System.out.println("Year: ");
             year = new Scanner(System.in).nextLine();
         } while (Integer.parseInt(year) < 0);
-        System.out.println(month+" "+year);
-       if(tmp == 1 ){
-           switch (month) {
-               case "January":
-                   System.out.println("có 31 ngày");
-                   break;
-               case "February":
-                   if (Integer.parseInt(year) % 4 == 0)
-                       System.out.println("có 29 ngày");
-                   else
-                       System.out.println("có 28 ngày");
-                   break;
-               case "March":
-                   System.out.println("có 31 ngày");
-                   break;
-               case "April":
-                   System.out.println("có 30 ngày");
-                   break;
-               case "May":
-                   System.out.println("có 31 ngày");
-                   break;
-               case "June":
-                   System.out.println("có 30 ngày");
-                   break;
-               case "July":
-                   System.out.println("có 31 ngày");
-                   break;
-               case "August":
-                   System.out.println("có 31 ngày");
-                   break;
-               case "September":
-                   System.out.println("có 30 ngày");
-                   break;
-               case "October":
-                   System.out.println("có 31 ngày");
-                   break;
-               case "November":
-                   System.out.println("có 30 ngày");
-                   break;
-               case "December":
-                   System.out.println("có 31 ngày");
-                   break;
-               default:
-                   throw new IllegalStateException("Unexpected value: " + month);
-           }
-       }else {
-           switch (month) {
-               case "Jan":
-                   System.out.println("có 31 ngày");
-                   break;
-               case "Feb":
-                   if (Integer.parseInt(year) % 4 == 0)
-                       System.out.println("có 29 ngày");
-                   else
-                       System.out.println("có 28 ngày");
-                   break;
-               case "Mar":
-                   System.out.println("có 31 ngày");
-                   break;
-               case "Apr":
-                   System.out.println("có 30 ngày");
-                   break;
-               case "May":
-                   System.out.println("có 31 ngày");
-                   break;
-               case "Jun":
-                   System.out.println("có 30 ngày");
-                   break;
-               case "Jul":
-                   System.out.println("có 31 ngày");
-                   break;
-               case "Aug":
-                   System.out.println("có 31 ngày");
-                   break;
-               case "Sep":
-                   System.out.println("có 30 ngày");
-                   break;
-               case "Oct":
-                   System.out.println("có 31 ngày");
-                   break;
-               case "Nov":
-                   System.out.println("có 30 ngày");
-                   break;
-               case "Dec":
-                   System.out.println("có 31 ngày");
-                   break;
-               default:
-                   throw new IllegalStateException("Unexpected value: " + month);
-           }
+        System.out.println(month + " " + year);
+        switch (month) {
+            case "Jan":
+            case "Jan.":
+            case "January":
+                System.out.println("có 31 ngày");
+                break;
+            case "Feb":
+            case "Feb.":
+            case "February":
+                if (Integer.parseInt(year) % 4 == 0)
+                    System.out.println("có 29 ngày");
+                else
+                    System.out.println("có 28 ngày");
+                break;
+            case "Mar":
+            case "Mar.":
+            case "March":
+                System.out.println("có 31 ngày");
+                break;
+            case "Apr":
+                case "Apr.":
+            case "April":
+                System.out.println("có 30 ngày");
+                break;
+            case "May":
+                System.out.println("có 31 ngày");
+                break;
+            case "June":
+                System.out.println("có 30 ngày");
+                break;
+            case "July":
+                System.out.println("có 31 ngày");
+                break;
+            case "August":
+                System.out.println("có 31 ngày");
+                break;
+            case "September":
+                System.out.println("có 30 ngày");
+                break;
+            case "October":
+                System.out.println("có 31 ngày");
+                break;
+            case "November":
+                System.out.println("có 30 ngày");
+                break;
+            case "December":
+                System.out.println("có 31 ngày");
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + month);
 
-       }
+        }
     }
 }
