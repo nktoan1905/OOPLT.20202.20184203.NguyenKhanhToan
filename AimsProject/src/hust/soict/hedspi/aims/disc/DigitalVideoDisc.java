@@ -1,4 +1,4 @@
-package lab03;
+package hust.soict.hedspi.aims.disc;
 
 public class DigitalVideoDisc {
     private String title;
@@ -18,6 +18,16 @@ public class DigitalVideoDisc {
         this.cost = cost;
     }
 
+    public boolean search(String title){
+        String []str = this.title.split(" ");
+        for (String a: str
+             ) {
+            if(a.equalsIgnoreCase(title)){
+                return true;
+            }
+        }
+        return false;
+    }
     public DigitalVideoDisc(String title) {
         this.title = title;
     }

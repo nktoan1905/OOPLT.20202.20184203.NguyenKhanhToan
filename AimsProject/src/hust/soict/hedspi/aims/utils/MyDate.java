@@ -1,4 +1,4 @@
-package lab03;
+package hust.soict.hedspi.aims.utils;
 
 import java.time.LocalDate;
 import java.util.Scanner;

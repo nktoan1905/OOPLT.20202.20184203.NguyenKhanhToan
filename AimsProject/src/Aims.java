@@ -1,4 +1,6 @@
-package lab03;
+import hust.soict.hedspi.aims.disc.DigitalVideoDisc;
+import hust.soict.hedspi.aims.order.Order;
+
 
 public class Aims {
     public static void main(String[] args) {
@@ -22,20 +24,23 @@ public class Aims {
         disc3.setCost(18.99f);
         disc3.setDirector("Jhon Musker");
         disc3.setLength(90);
+        System.out.println(disc2.search("star"));
         anOrder.addDigitalVideoDisc(disc3);
-        anOrder.addDigitalVideoDisc(disc3);
-        anOrder.addDigitalVideoDisc(disc3);
-        anOrder.addDigitalVideoDisc(disc3);
-        anOrder.addDigitalVideoDisc(disc3);
-        anOrder.addDigitalVideoDisc(disc3);
-        anOrder.addDigitalVideoDisc(disc3);
-        anOrder.addDigitalVideoDisc(disc3);
-        anOrder.removeDigitalVideoDisc(disc3);
+//        anOrder.addDigitalVideoDisc(disc3);
+//        anOrder.addDigitalVideoDisc(disc3);
+//        anOrder.addDigitalVideoDisc(disc3);
+//        anOrder.addDigitalVideoDisc(disc3);
+//        anOrder.addDigitalVideoDisc(disc3);
+//        anOrder.addDigitalVideoDisc(disc3);
+//        anOrder.addDigitalVideoDisc(disc3);
+//        anOrder.removeDigitalVideoDisc(disc3);
 //        anOrder.addDigitalVideoDisc(disc3);
 //        anOrder.addDigitalVideoDisc(disc3);
 
         System.out.println("Total cost is:");
         System.out.println(anOrder.totalCost());
+
+
 
     }
 
