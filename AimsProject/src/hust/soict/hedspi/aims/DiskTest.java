@@ -12,18 +12,22 @@ public class DiskTest {
         DigitalVideoDisc dvd4 = new DigitalVideoDisc("awm", "test1", "test1", 123, 15.5f);
         DigitalVideoDisc dvd5 = new DigitalVideoDisc("xyz", "test2", "test2", 80, 19.5f);
 
-//        // Create order
-////        Order anOrder = Order.getOrder();
-////        assert anOrder != null;
-////        anOrder.addDisc(dvd1, dvd2, dvd3, dvd4, dvd5);
-//
-////		anOrder.check();
-//        System.out.println("=========================================");
-//        // total cost before get luck
-//        System.out.printf("Tong tien truoc khi giam gia: %f %n", anOrder.totalCost());
-//        anOrder.getALuckyItem();
-//        System.out.printf("Tong tien sau khi giam gia: %f %n", anOrder.totalCost());
-////		sc.close();
+        Order anOrder = Order.getOrder();
+        assert anOrder != null;
+        anOrder.addDigitalVideoDiscVerManyItemsInput(dvd1, dvd2, dvd3, dvd4, dvd5);
+
+
+        System.out.println("=========================================");
+        // total cost before get luck
+        System.out.printf("Tổng tiền trước khi giảm: %f %n", anOrder.totalCost());
+        DigitalVideoDisc dvd = anOrder.getALuckyItem();
+        if(dvd != null){
+            System.out.println(dvd.toString());
+            System.out.printf("Tổng tiền sau khi giảm: %f %n", anOrder.totalCost());
+        }else{
+            System.out.println("Rất tiếc bạn không được giảm");
+        }
+
 
 
 

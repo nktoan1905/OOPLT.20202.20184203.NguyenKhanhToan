@@ -71,4 +71,29 @@ public class DigitalVideoDisc {
     public void setCost(float cost) {
         this.cost = cost;
     }
+    public boolean equals(Object obj) {
+        if (obj instanceof DigitalVideoDisc) {
+            DigitalVideoDisc another = (DigitalVideoDisc) obj;
+            if (this.category.equals(another.category) && this.director.equals(another.director) && this.length == another.length && this.cost == another.cost) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public static void swap(DiscSwap cw1,  DiscSwap cw2)
+    {
+        DigitalVideoDisc temp = cw1.c;
+        cw1.c = cw2.c;
+        cw2.c = temp;
+    }
+    @Override
+    public String toString() {
+        return "DigitalVideoDisc{" +
+                "title='" + title + '\'' +
+                ", category='" + category + '\'' +
+                ", director='" + director + '\'' +
+                ", length=" + length +
+                ", cost=" + cost +
+                '}';
+    }
 }

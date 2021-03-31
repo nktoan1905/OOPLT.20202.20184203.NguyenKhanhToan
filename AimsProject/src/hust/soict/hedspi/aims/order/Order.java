@@ -2,101 +2,121 @@ package hust.soict.hedspi.aims.order;
 
 
 import hust.soict.hedspi.aims.disc.DigitalVideoDisc;
+import hust.soict.hedspi.aims.utils.MyDate;
 
 public class Order {
-    public static final int MAX_NUMBERS_ORDER = 10;
-    private DigitalVideoDisc itemsOrder[] = new DigitalVideoDisc[MAX_NUMBERS_ORDER];
-    private int qtyOrder = 0;
+    public static final int MAX_NUMBERS_ORDERED = 10;
+    public static final int MAX_LIMITED_ORDERS = 5;
+    private int qtyOrdered = 0;
+    private static int nbOrders = 0;
+    private final DigitalVideoDisc[] itemsOrdered = new DigitalVideoDisc[MAX_NUMBERS_ORDERED];
+    private final MyDate dateOrdered = new MyDate();
 
-    public void addDigitalVideoDisc(DigitalVideoDisc disc) {
-        // Thêm đĩa vào danh sách
-        // Kiểm tra số lượng hiện tại để xem đĩa đầy chưa
-        // The disc has been added
-        // The order is almost full
-        if (this.qtyOrder < MAX_NUMBERS_ORDER) {
-            this.itemsOrder[this.qtyOrder++] = new DigitalVideoDisc(disc.getTitle(), disc.getCategory(),
-                    disc.getDirector(), disc.getLength(), disc.getCost());
-            System.out.println("The disc has been added");
-        } else {
-            System.out.println("The order is almost full");
+    public static Order getOrder() {
+        if(nbOrders < MAX_LIMITED_ORDERS) {
+            Order newOrder = new Order();
+            nbOrders++;
+            return newOrder;
+        }
+        else {
+            System.out.println("The numbers of orders is almost max.");
+            return null;
         }
     }
-    public void addDigitalVideoDisc(DigitalVideoDisc[]dvdList) {
-        int count = 0;
-        for (int i = 0; i < dvdList.length; i++) {
-            if(dvdList[i].getTitle() != null){
-             count++;
+
+
+
+    public void addDigitalVideoDisc(DigitalVideoDisc dvd) {
+        if (this.qtyOrdered  < MAX_NUMBERS_ORDERED) {
+            DigitalVideoDisc item = new DigitalVideoDisc(dvd.getTitle(), dvd.getCategory(), dvd.getDirector(), dvd.getLength(), dvd.getCost());
+            this.itemsOrdered[this.qtyOrdered] = item;
+            this.qtyOrdered++;
+            System.out.println("The disc " + dvd.getTitle() + " has been added");
+        }
+        else System.out.println("The order is almost full");
+    }
+
+    public void addDigitalVideoDisc(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
+        if (this.qtyOrdered  < MAX_NUMBERS_ORDERED) {
+            DigitalVideoDisc item1 = new DigitalVideoDisc(dvd1.getTitle(), dvd1.getCategory(), dvd1.getDirector(), dvd1.getLength(), dvd1.getCost());
+            DigitalVideoDisc item2 = new DigitalVideoDisc(dvd2.getTitle(), dvd2.getCategory(), dvd2.getDirector(), dvd2.getLength(), dvd2.getCost());
+            this.itemsOrdered[this.qtyOrdered++] = item1;
+            if (this.qtyOrdered == MAX_NUMBERS_ORDERED) {
+                System.out.println("The dvd " +  dvd2.getTitle()+ " could not be added");
+            }else {
+                this.itemsOrdered[this.qtyOrdered++] = item2;
             }
         }
-        if((count + this.qtyOrder)>MAX_NUMBERS_ORDER){
+        else System.out.println("The order is almost full");
+    }
+
+    public void addDigitalVideoDiscVerManyItemsInput(DigitalVideoDisc ...dvdList) {
+        if (this.qtyOrdered == MAX_NUMBERS_ORDERED) {
             System.out.println("The order is almost full");
             return;
         }
-        if(this.qtyOrder < MAX_NUMBERS_ORDER){
-            for (int i = 0; i < count; i++) {
-                if(dvdList[i].getTitle() != null){
-                    this.itemsOrder[this.qtyOrder++] = new DigitalVideoDisc(dvdList[i].getTitle(), dvdList[i].getCategory(),
-                            dvdList[i].getDirector(), dvdList[i].getLength(), dvdList[i].getCost());
-                    System.out.println("The disc has been added");
-                }
+        for (DigitalVideoDisc disc: dvdList) {
+            if (this.qtyOrdered < MAX_NUMBERS_ORDERED) {
+                this.itemsOrdered[this.qtyOrdered++] = disc;
+                System.out.println("The DVD " + disc.getTitle() + " has been added.");
+            }else {
+                System.out.println("The order is almost full");
+                break;
+
             }
-        }else{
-            System.out.println("The order is almost full");
         }
     }
-    public void addDigitalVideoDisc(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2 ){
 
-    }
-
-    public void removeDigitalVideoDisc(DigitalVideoDisc disc) {
-        // xóa đĩa được truyền vào
-        // Hiện tại cho phép tìm đĩa theo tên, tên trùng nhau là xóa, nếu có nhiều hơn 1 đĩa
-        // trùng nhau thì xóa phần tử đầu tiên tìm thấy
-        //
-        int i, viTri = -1;
-
-        for (i = 0; i < this.qtyOrder; i++) {
-            if (this.itemsOrder[i].getTitle().equals(disc.getTitle())) {
-                viTri = i;
+    public void removeDigitalVideoDisc(DigitalVideoDisc dvd) {
+        int k = -1;
+        for(int i=0; i < this.qtyOrdered; i++) {
+            if(this.itemsOrdered[i].equals(dvd)) {
+                for(int j=i;j < this.qtyOrdered - 1; j++) {
+                    this.itemsOrdered[j] = new DigitalVideoDisc(this.itemsOrdered[j+1].getTitle(), this.itemsOrdered[j+1].getCategory(), this.itemsOrdered[j+1].getDirector(), this.itemsOrdered[j+1].getLength(), this.itemsOrdered[j+1].getCost());
+                }
+                this.qtyOrdered--;
+                k = i;
+                System.out.println("Remove " + dvd.getTitle() + " successfully");
                 break;
             }
         }
-        if(viTri == -1) {
-            System.out.println("Not found disc in Orders");
-        }else {
-            for (int j = viTri; j <= this.qtyOrder - 2; j++) {
-                 this.itemsOrder[j] = new DigitalVideoDisc(this.itemsOrder[j+1].getTitle());
-                this.itemsOrder[j].setCategory(this.itemsOrder[j+1].getCategory());
-                this.itemsOrder[j].setCost(this.itemsOrder[j+1].getCost());
-                this.itemsOrder[j].setDirector(this.itemsOrder[j+1].getDirector());
-                this.itemsOrder[j].setLength(this.itemsOrder[j+1].getLength());
-            }
-            this.qtyOrder--;
-            System.out.println("Remove Success!!");
+        if (k == -1) {
+            System.out.println("The Disc " +  dvd.getTitle() + " Not found");
         }
+
+
     }
 
-    public double totalCost() {
-        double cost = 0;
-        // trả về tổng chi phí của đơn hàng
-        for (int i = 0; i < qtyOrder; i++) {
-//            System.out.println("disc "+i+" tilte : "+this.itemsOrder[i].getTitle());
-            cost += this.itemsOrder[i].getCost();
+    public float totalCost() {
+        float sum = 0;
+        for (int i = 0; i < this.qtyOrdered; i++) {
+            sum += this.itemsOrdered[i].getCost();
         }
-        return cost;
+        return sum;
     }
+
     public DigitalVideoDisc getALuckyItem() {
         DigitalVideoDisc disc;
-        int lucky = (int) (Math.random() * ((this.qtyOrder ) - 0 + 1) +0);
-        if(lucky > this.qtyOrder -1){
+        int lucky = (int) (Math.random() * ((this.qtyOrdered ) - 0 + 1) +0);
+        if(lucky > this.qtyOrdered -1){
 
             return null;
         }else{
-            this.itemsOrder[lucky].setCost(0f);
-            disc = new DigitalVideoDisc(this.itemsOrder[lucky].getTitle(),this.itemsOrder[lucky].getCategory()
-                                        ,this.itemsOrder[lucky].getDirector(), this.itemsOrder[lucky].getLength(),this.itemsOrder[lucky].getCost());
+            this.itemsOrdered[lucky].setCost(0f);
+            disc = new DigitalVideoDisc(this.itemsOrdered[lucky].getTitle(),this.itemsOrdered[lucky].getCategory()
+                    ,this.itemsOrdered[lucky].getDirector(), this.itemsOrdered[lucky].getLength(),this.itemsOrdered[lucky].getCost());
             return disc;
         }
     }
+    public void printListOfOrdered() {
+        System.out.println("********************************THIS IS YOUR ORDER******************************");
+        dateOrdered.print();
+        System.out.println("Ordered Items: ");
+        for(int i=0; i<this.qtyOrdered; i++) {
+            System.out.println("DVD - " + this.itemsOrdered[i].getTitle() + " - " + this.itemsOrdered[i].getCategory() + " - " + this.itemsOrdered[i].getDirector() + " - " + this.itemsOrdered[i].getLength() + " : " + this.itemsOrdered[i].getCost());
+        }
+        System.out.println("Total cost: " + totalCost());
 
+    }
 }
+
