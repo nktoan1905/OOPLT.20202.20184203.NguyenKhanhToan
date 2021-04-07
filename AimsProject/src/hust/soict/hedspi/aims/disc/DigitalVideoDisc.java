@@ -1,5 +1,7 @@
-package hust.soict.hedspi.aims.media;
+package hust.soict.hedspi.aims.disc;
 
+
+import hust.soict.hedspi.aims.media.Media;
 
 public class DigitalVideoDisc extends Media {
     private String director;

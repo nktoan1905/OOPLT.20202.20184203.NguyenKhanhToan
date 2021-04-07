@@ -1,7 +1,7 @@
 package hust.soict.hedspi.aims;
 
 import hust.soict.hedspi.aims.media.Book;
-import hust.soict.hedspi.aims.media.DigitalVideoDisc;
+import hust.soict.hedspi.aims.disc.DigitalVideoDisc;
 import hust.soict.hedspi.aims.order.Order;
 
 import java.util.Scanner;
