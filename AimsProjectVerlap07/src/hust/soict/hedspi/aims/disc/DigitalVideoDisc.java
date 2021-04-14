@@ -1,58 +1,28 @@
 package hust.soict.hedspi.aims.disc;
 
 
-import hust.soict.hedspi.aims.media.Media;
+import hust.soict.hedspi.aims.media.Disc;
+import hust.soict.hedspi.aims.media.Playable;
 
-public class DigitalVideoDisc extends Media {
-    private String director;
-    private int length;
-
-    public DigitalVideoDisc() {
+public class DigitalVideoDisc extends Disc implements Playable {
+    public DigitalVideoDisc(int id, String title, String director, int length){
+        super(id,title, director, length);
     }
 
-    public DigitalVideoDisc(int id, String title) {
-        super(id, title);
+    public DigitalVideoDisc(int id,String title,String category, String director, int length){
+        super(id,title, category,director,length);
     }
 
-    public DigitalVideoDisc(int id, String title, String category) {
-        super(id, title, category);
+    public DigitalVideoDisc(int id,String title,String category,float cost, String director, int length){
+        super(id,title,category,cost,director,length);
     }
-
-    public DigitalVideoDisc(int id, String title, String category, String director) {
-        super(id, title, category);
-        this.director = director;
-    }
-
-    public DigitalVideoDisc(int id, String title, String category, String director, int length, float cost) {
-        super(id, title, category, cost);
-        this.director = director;
-        this.length = length;
-    }
-
-
-    public String getDirector() {
-        return director;
-    }
-
-    public void setDirector(String director) {
-        this.director = director;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
-    }
-
 
     @Override
-    public String toString() {
-        return "DVD - " + super.getTitle() + " - " + super.getCategory() + " - " + this.getDirector() + " - " + this.getLength() + " : " + super.getCost() + " $";
+    public String toString(){
+        return "DVD - "+super.getTitle()+" - "+super.getCategory()+" - "+this.getDirector()+" - "+this.getLength()+" : "+super.getCost()+" $";
     }
 
-    public boolean search(String title) {
+    public boolean search (String title){
         String[] token_search = title.toLowerCase().split(" ");
         String[] token_title = title.toLowerCase().split(" ");
         int flag = 0;
@@ -65,5 +35,9 @@ public class DigitalVideoDisc extends Media {
             }
         }
         return flag == token_search.length;
+    }
+    public void play() {
+        System.out.println("Playing DVD: " + this.getTitle());
+        System.out.println("DVD length: " + this.getLength());
     }
 }

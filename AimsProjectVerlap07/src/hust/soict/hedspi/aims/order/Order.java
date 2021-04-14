@@ -6,7 +6,7 @@ import hust.soict.hedspi.aims.utils.MyDate;
 import java.util.ArrayList;
 
 public class Order {
-    public static final int MAX_NUMBERS_ORDERED = 10;
+    public static final int MAX_NUMBERS_ORDERED = 2;
     public static final int MAX_LIMITED_ORDERS = 5;
     private static int nbOrders = 0;
 
@@ -22,19 +22,19 @@ public class Order {
         }
     }
 
-    public void addMedia(Media media){
-        if(itemsOrdered.size() < MAX_NUMBERS_ORDERED )
+    public void addMedia(Media media) {
+        if (itemsOrdered.size() < MAX_NUMBERS_ORDERED)
             this.itemsOrdered.add(media);
         else
             System.out.println("The list media is full !");
     }
 
-    public void removeMedia(int id){
-        this.itemsOrdered.removeIf(o->o.getId()==id);
+    public void removeMedia(int id) {
+        this.itemsOrdered.removeIf(o -> o.getId() == id);
     }
 
-    public Media searchById(int id){
-        Media media =  this.itemsOrdered.stream().filter(o->o.getId()==id).findFirst().orElse(null);
+    public Media searchById(int id) {
+        Media media = this.itemsOrdered.stream().filter(o -> o.getId() == id).findFirst().orElse(null);
         return media;
     }
 
@@ -46,8 +46,7 @@ public class Order {
         return cost;
     }
 
-    public void display(){
+    public void display() {
         this.itemsOrdered.forEach(o -> System.out.println(o.toString()));
     }
 }
-
