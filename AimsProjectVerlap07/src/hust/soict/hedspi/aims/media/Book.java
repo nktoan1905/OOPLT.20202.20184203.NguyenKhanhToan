@@ -21,7 +21,7 @@ public class Book extends Media{
         if(authors.size() != 0) {
             this.authors = authors;
         }else {
-            System.out.println("Authors list is empty !");
+            System.out.println("Danh sách tác giả trống!");
         }
     }
     public List<String> getAuthors() {
@@ -43,7 +43,7 @@ public class Book extends Media{
         if(flag == 0)
             authors.add(authorName);
         else
-            System.out.println("Can not add the author's name because it existed !");
+            System.out.println("Không thể thêm author vì đã tồn tại!");
 
     }
     public void removeAuthor(String authorName){
@@ -57,7 +57,7 @@ public class Book extends Media{
         if(flag == 1)
             authors.removeIf(o->o.equals(authorName));
         else
-            System.out.println("The author's name not found !");
+            System.out.println("không tìm thấy author có name " + authorName);
     }
     @Override
     public String toString(){
