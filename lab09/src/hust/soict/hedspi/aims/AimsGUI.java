@@ -3,7 +3,7 @@ package hust.soict.hedspi.aims;
 import hust.soict.hedspi.aims.disc.CompactDisc;
 import hust.soict.hedspi.aims.disc.DigitalVideoDisc;
 import hust.soict.hedspi.aims.disc.Track;
-import hust.soict.hedspi.aims.media.Book;
+
 import hust.soict.hedspi.aims.media.Media;
 import hust.soict.hedspi.aims.order.Order;
 
@@ -28,13 +28,9 @@ public class AimsGUI extends JFrame {
     private int mediaCount;
 
     public AimsGUI() {
-        // get this frame
         JFrame f = this;
-        // containter
         Container parentContainer = getContentPane();
-        parentContainer.setLayout(new BorderLayout()); // The content-pane sets its layout
-
-        // header for create order button
+        parentContainer.setLayout(new BorderLayout());
         parentContainer.add(new JPanel() {
             {
                 setLayout(new FlowLayout());
@@ -42,7 +38,7 @@ public class AimsGUI extends JFrame {
             }
         }, BorderLayout.NORTH);
 
-        // footer for another button
+
         termField.setColumns(10);
         parentContainer.add(new JPanel() {
             {
@@ -56,7 +52,7 @@ public class AimsGUI extends JFrame {
 
         order = new Order();
 
-        // test media
+
         mediaCount += 3;
         DigitalVideoDisc dvd = new DigitalVideoDisc(1, "Abcddd", "def", 20f, "abcd", 2);
         DigitalVideoDisc dvd2 = new DigitalVideoDisc(2, "Abc2", "def", 20f, "cvbxvb", 2);
@@ -65,7 +61,7 @@ public class AimsGUI extends JFrame {
         order.addMedia(dvd2);
         order.addMedia(dvd3);
 
-        // display media
+
         displayPanel = new JPanel(new BorderLayout());
         displayPanel.add(new JLabel("Order "  + SwingConstants.CENTER), BorderLayout.NORTH);
         mediaList = new JList<>(new Vector<>(order.getItemsOrdered()));
@@ -75,14 +71,9 @@ public class AimsGUI extends JFrame {
         displayPanel.add(scrollPane);
         parentContainer.add(displayPanel);
 
-        // create order event
+
         createOrderBtn.addActionListener(evt -> {
             order = new Order();
-            if (order == null) {
-                JOptionPane.showMessageDialog(parentContainer, "Max orders reach!", "Error",
-                        JOptionPane.ERROR_MESSAGE);
-                return;
-            }
             displayPanel.removeAll();
             displayPanel.add(new JLabel("Order ", SwingConstants.CENTER), BorderLayout.NORTH);
             mediaList = new JList<>(new Vector<>(order.getItemsOrdered()));
@@ -94,16 +85,13 @@ public class AimsGUI extends JFrame {
             displayPanel.repaint();
         });
 
-        // add event
-        // in progress
         addItemBtn.addActionListener(evt -> {
-            // popup dialog
             JDialog inputForm = new JDialog(f, "Add Media", true);
             inputForm.setLayout(new FlowLayout());
-            // select media type
+
             JButton confirmBtn = new JButton("OK");
             String[] options = { "CD", "DVD",};
-            JComboBox<String> chooseMediaBox = new JComboBox<String>(options);
+            JComboBox<String> chooseMediaBox = new JComboBox<>(options);
             inputForm.add(chooseMediaBox);
             inputForm.add(confirmBtn);
             confirmBtn.addActionListener(new ActionListener() {
@@ -112,7 +100,7 @@ public class AimsGUI extends JFrame {
                     String choosed = (String) chooseMediaBox.getSelectedItem();
                     System.out.println(choosed);
                     inputForm.dispose();
-                    if (choosed != null ? choosed.equals("DVD") : false) { // CD choosed
+                    if (choosed != null && choosed.equals("DVD")) { // CD choosed
                         JDialog inputDVDForm = new JDialog(f, "Add DVD", true);
                         inputDVDForm.setLayout(new GridLayout(6, 1));
                         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -192,7 +180,7 @@ public class AimsGUI extends JFrame {
                         inputDVDForm.setSize(400, 300);
                         inputDVDForm.setResizable(false);
                         inputDVDForm.setVisible(true);
-                    } else if (choosed.equals("CD")) { // DVD choosed
+                    } else { // DVD choosed
                         JDialog inputCDForm = new JDialog(f, "Add CD", true);
                         inputCDForm.setLayout(new GridLayout(0, 1));
                         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -319,9 +307,9 @@ public class AimsGUI extends JFrame {
             inputForm.setVisible(true);
         });
 
-        // search event
+
         searchItemBtn.addActionListener(evt -> {
-            // if field is null, display all media
+
             if (termField.getText() == null) {
                 mediaList.removeAll();
                 mediaList.setListData(new Vector<>(order.getItemsOrdered()));
@@ -329,47 +317,39 @@ public class AimsGUI extends JFrame {
                 displayPanel.repaint();
                 return;
             }
-            // search and display media
+
             mediaList.removeAll();
             mediaList.setListData(new Vector<>(order.search(termField.getText())));
             displayPanel.revalidate();
             displayPanel.repaint();
         });
 
-        // delete event
+
         deleteItemBtn.addActionListener(evt -> {
-            // check if not select any media
+
             if (mediaList.getSelectedValue() == null) {
                 JOptionPane.showMessageDialog(parentContainer, "Select media first", "Warning",
                         JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            // delete selected medias
+
             for (Media media : mediaList.getSelectedValuesList()) {
                 order.removeMedia(media);
             }
-            // display new medias
+
             mediaList.removeAll();
             mediaList.setListData(new Vector<>(order.getItemsOrdered()));
             displayPanel.revalidate();
             displayPanel.repaint();
         });
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Exit program if close-window button clicked
-        setTitle("Aims Project"); // "super" JFrame sets title
-        setSize(800, 600); // "super" JFrame sets initial size
-        setMinimumSize(new Dimension(400, 300));
-        setVisible(true); // "super" JFrame shows
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Aims Project");
+        setSize(1000, 700);
+        setMinimumSize(new Dimension(600, 300));
+        setVisible(true);
     }
-
     public static void main(String[] args) {
-        // Run the GUI construction in the Event-Dispatching thread for thread-safety
-        // Let the constructor do the job
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new AimsGUI(); // Let the constructor do the job
-            }
-        });
+        SwingUtilities.invokeLater(AimsGUI::new);
     }
 }
