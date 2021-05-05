@@ -102,7 +102,7 @@ public class AimsGUI extends JFrame {
             inputForm.setLayout(new FlowLayout());
             // select media type
             JButton confirmBtn = new JButton("OK");
-            String[] options = { "CD", "DVD", "Book" };
+            String[] options = { "CD", "DVD",};
             JComboBox<String> chooseMediaBox = new JComboBox<String>(options);
             inputForm.add(chooseMediaBox);
             inputForm.add(confirmBtn);
@@ -310,75 +310,6 @@ public class AimsGUI extends JFrame {
                         inputCDForm.setSize(400, 300);
                         inputCDForm.setResizable(false);
                         inputCDForm.setVisible(true);
-                    } else { // Book choosed
-                        JDialog inputBookForm = new JDialog(f, "Add Book", true);
-                        inputBookForm.setLayout(new GridLayout(5, 1));
-                        JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-                        JLabel titleLabel = new JLabel("Title:");
-                        JTextField titleField = new JTextField();
-                        titleField.setColumns(25);
-                        titlePanel.add(titleLabel);
-                        titlePanel.add(titleField);
-                        JPanel categoryPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-                        JLabel categoryLabel = new JLabel("Category:");
-                        JTextField categoryField = new JTextField();
-                        categoryField.setColumns(25);
-                        categoryPanel.add(categoryLabel);
-                        categoryPanel.add(categoryField);
-                        JPanel artistsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-                        JLabel artistsLabel = new JLabel("Artists:");
-                        JTextField artistsField = new JTextField();
-                        artistsField.setColumns(25);
-                        artistsPanel.add(artistsLabel);
-                        artistsPanel.add(artistsField);
-                        JPanel costPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-                        JLabel costLabel = new JLabel("Cost($):");
-                        JTextField costField = new JTextField();
-                        costField.setColumns(25);
-                        costPanel.add(costLabel);
-                        costPanel.add(costField);
-                        JPanel btnPanel = new JPanel(new FlowLayout());
-                        JButton addConfirmBtn = new JButton("Add");
-                        btnPanel.add(addConfirmBtn);
-                        inputBookForm.add(titlePanel);
-                        inputBookForm.add(categoryPanel);
-                        inputBookForm.add(artistsPanel);
-                        inputBookForm.add(costPanel);
-                        inputBookForm.add(btnPanel);
-
-                        addConfirmBtn.addActionListener(evt13 -> {
-                            if (titleField.getText().isEmpty() || categoryField.getText().isEmpty()
-                                    || costField.getText().isEmpty()) {
-                                JOptionPane.showMessageDialog(inputBookForm,
-                                        "Must fill all text fields, except artists", "Warning",
-                                        JOptionPane.WARNING_MESSAGE);
-                                return;
-                            }
-                            float cost;
-                            try {
-                                cost = Float.parseFloat(costField.getText());
-                            } catch (Exception e) {
-                                JOptionPane.showMessageDialog(inputBookForm, "Cost field must be real number!",
-                                        "Warning", JOptionPane.WARNING_MESSAGE);
-                                return;
-                            }
-                            List<String> artists = new ArrayList<>();
-                            if (!artistsField.getText().isEmpty()) {
-                                String[] artistsStr = artistsField.getText().split(";\\s+");
-                                artists = Arrays.asList(artistsStr);
-                            }
-                            mediaCount++;
-                            order.addMedia(new Book(mediaCount, titleField.getText(), categoryField.getText(),
-                                    cost, (ArrayList<String>) artists));
-                            inputBookForm.dispose();
-                            mediaList.removeAll();
-                            mediaList.setListData(new Vector<>(order.search(termField.getText())));
-                            displayPanel.revalidate();
-                            displayPanel.repaint();
-                        });
-                        inputBookForm.setSize(400, 300);
-                        inputBookForm.setResizable(false);
-                        inputBookForm.setVisible(true);
                     }
                 }
             });

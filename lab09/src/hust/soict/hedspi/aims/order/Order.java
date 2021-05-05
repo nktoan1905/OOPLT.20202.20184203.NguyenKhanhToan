@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
-    public static final int MAX_NUMBERS_ORDERED = 2;
+    public static final int MAX_NUMBERS_ORDERED = 10;
     public static final int MAX_LIMITED_ORDERS = 5;
     private static int nbOrders = 0;
 
